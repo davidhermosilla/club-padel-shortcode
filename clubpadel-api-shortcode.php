@@ -38,6 +38,9 @@ function callback_function_club_api( $atts ) {
         $html = get_roles($atts);
     } 
 	
+	$salida=user_has_role(wp_get_current_user()->id,'administrator');
+	echo $salida;
+	
     return $html;
 }
 
@@ -78,5 +81,16 @@ function get_roles($atts) {
               <figcaption class="wp-element-caption">Tabla de roles</figcaption>
               </figure>' ;
 
+
+	
+	
     return $html;    
 }    
+
+function user_has_role($user_id, $role_name)
+{
+    $user_meta = get_userdata($user_id);
+    $user_roles = $user_meta->roles;
+	print_r($user_roles);
+    return in_array($role_name, $user_roles);
+}
